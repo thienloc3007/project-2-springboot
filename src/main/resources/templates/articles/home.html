@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Busan in my heart </title>
+</head>
+<body>
+
+<table style="width:90%">
+    <tr>
+        <th> <a th:href="@{/articles/category/1}"> Hot deals & Coupon </a>  </th>
+        <th> <a th:href="@{/articles/category/2}"> Jobs & Career </a> </th>
+        <th> <a th:href="@{/articles/category/3}"> Daily News </a> </th>
+        <th> <a th:href="@{/articles/category/4}"> Caution </a> </th>
+    </tr>
+</table>
+<h1 text-align="center"> List of articles </h1>
+<!--<a href = "articles/create"> Write new article </a>-->
+<hr>
+<!--&lt;!&ndash;trường hợp ko có Articles&ndash;&gt;-->
+<div
+        th:if="${articles.isEmpty()}">
+    <p> There is no post yet </p>
+</div>
+
+<!--trường hợp có Articles-->
+<table style="width:80%" text-align="center">
+    <tr>
+        <td style="width:10%" > ID </td>
+        <td style="width:40%" > Article Title</td>
+        <td style="width:15%"> Category </td>
+        <td style="width:15%"> Action </td>
+
+    </tr>
+</table>
+<div
+        th:unless="${articles.isEmpty()}"
+        th:each="article: ${articles}"
+>
+        <table style="width:70%">
+        <tr>
+            <th text-align="center"> [[${article.id}]]. </th>
+            <th text-align="left"> [[${article.title}]]</th>
+            <th text-align="center"> [[${article.category.title}]] </th>
+            <th>
+            <a th:href="@{/articles/{id} (id=${article.id})}"> Read </a>
+            or
+            <a th:href="@{/articles/{id}/update (id=${article.id})}"> Update your articles </a>
+            </th>
+        </tr>
+    </table>
+
+</div>
+
+<a th:href="@{/articles/create}" > Create a new article </a>
+
+
+</body>
+</html>

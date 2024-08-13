@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1> [[${categoryname}]]</h1>
+
+<div
+        th:if="${articles.isEmpty()}">
+    <p> There is no article in this category </p>
+</div>
+
+<!--trường hợp có Articles-->
+<table style="width:80%" text-align="center">
+    <tr>
+        <td style="width:10%" > ID </td>
+        <td style="width:40%" > Article Title</td>
+        <td style="width:15%"> Category </td>
+        <td style="width:15%"> Action </td>
+
+    </tr>
+</table>
+<div
+        th:unless="${articles.isEmpty()}"
+        th:each="article: ${articles}"
+>
+    <table style="width:70%">
+        <tr>
+            <th text-align="center"> [[${article.id}]]. </th>
+            <th text-align="left"> [[${article.title}]]</th>
+            <th text-align="center"> [[${article.category.title}]] </th>
+            <th>
+                <a th:href="@{/articles/{id} (id=${article.id})}"> Read </a>
+                or
+                <a th:href="@{/articles/{id}/update (id=${article.id})}"> Update your articles </a>
+            </th>
+        </tr>
+    </table>
+
+</div>
+
+
+
+</body>
+</html>

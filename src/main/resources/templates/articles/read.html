@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${article.title}]]</title>
+</head>
+<body>
+<h1>[[${article.title}]] </h1>
+<hr>
+<p> [[${article.category.id}]] </p>
+<p> [[${article.content}]] </p>
+
+
+<a th:href="@{/articles/{id}/update (id=${article.id})}"> Update your articles </a>
+<br>
+<form th:action="@{/articles/{id}/delete (id=${article.id})}" method="post">
+    <input type="submit" value="Delete your article">
+</form>
+
+<br>
+<div th:if="${article.id} > 1" >
+<a th:href="@{/articles/{id} (id=${article.id}-1)}"> Previous </a>
+
+<< >>
+<a th:href="@{/articles/{id} (id=${article.id}+1)}"> Next </a>
+</div>
+
+<hr>
+
+    <h2> Comments </h2>
+    <div th:if="${article.comments.isEmpty()}">
+        <p> There is no comment here </p>
+    </div>
+
+    <div th:unless="${article.comments.isEmpty()} "
+         th:each="comment: ${article.comments}"
+    >
+        <h3> [[${comment.writer}]]. [[${comment.content}]]</h3>
+    </div>
+
+    <h3> Leave your comment? </h3>
+
+    <form th:action="@{/articles/{id}/comments/create (id=${article.id})}" method="post">
+        <div>
+            <label for = "comment-input" > Content </label>
+            <input type = "text" id = "comment-input" name = "content">
+        </div>
+        <div>
+            <label for = "writer-input" > Writer </label>
+            <input type = "text" id = "writer-input" name = "writer">
+
+        </div>
+        <div>
+            <label for = "commentPassword-input" > Password </label>
+            <input type = "text" id = "commentPassword-input" name = "commentPassword">
+
+        </div>
+        <input type="submit" value="Write Comment">
+
+    </form>
+
+    <a href="/articles"> Back to home </a>
+
+<hr>
+</body>
+</html>
